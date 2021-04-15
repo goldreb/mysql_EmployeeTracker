@@ -22,6 +22,4 @@ This application allows the user/employeer to maintain and organized. The user i
 
 
 
-## Video Link
-
 
