@@ -13,6 +13,12 @@ This application allows the user/employeer to maintain and organized. The user i
     * util
 
 ## Mock - up Images
+![Application Start](assets/start.JPG)
+
+
+![Add Employee in Terminal](assets/addEmployee.JPG)
+
+![Workbench](assets/workbench.JPG)
 
 
 
