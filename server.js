@@ -73,7 +73,7 @@ function viewEmployees() {
     })
 }
 
-function viewEmployeesByDep() {
+function viewEmployeesByDept() {
     inquirer
         .prompt([{
             name: "action",
@@ -88,7 +88,13 @@ function viewEmployeesByDep() {
 
 }
 
-function viewEmployeesByMngr() {
+function viewEmployeesByManager() {
+
+    const query = "SELECT employee.id, employee.first_name, employee.last_name, role.title, department_name AS department, role.salary, CONCAT(manager.first_name, ' ', manager.last_name) AS manager FROM empoyee LEFT JOIN role on employee.role_id = role.id LEFT JOIN department on role.department_id = department.id LEFT JOIN employee manager on manager.id = employee.manager_id;"
+    connection.query(query, (err,data)=>{
+        console.table(data)
+        runEmployeePrompt();
+    })
 
 }
 
@@ -134,13 +140,40 @@ function addEmployee() {
 }
 
 function removeEmployee() {
+   
+    const add = connection.query(
+        "DELETE FROM employee WHERE id = ?",
+        [id],
+        function (error, _id) {
+            if (error) throw error
+        })
+        viewEmployees(); 
+
 
 }
 
 function updateEmployeeRole() {
+    const byRole = connection.query(
+        "UPDATE employee SET role_id = ? WHERE id = ?",
+
+        [roleId, employeeId],
+        function (error, role) {
+            if (error) throw error
+
+        })
+        viewEmployeesByDept()
+
 
 }
 
-function updateEmployeeMngr() {
+function updateEmployeeManager() {
+    var updateManager = connection.query(
+        "UPDATE employee SET manager_id = ? WHERE id = ?",
+        [managerId, employeeId],
+        function (error, updateManager) {
+            if (error) throw error
+            
+        })
+        viewEmployeesByManager();
 
 }
